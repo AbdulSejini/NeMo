@@ -38,7 +38,7 @@ jobs:
     outputs:
       test_to_run: ${{ steps.test_to_run.outputs.main }}
       all: ${{ steps.all.outputs.main }}
-      vms: ${{ steps.list-vms.outputs.main }}
+      list-of-vms: ${{ steps.list-vms.outputs.main }}
     steps:
       - name: Parse test_to_run
         id: test_to_run
