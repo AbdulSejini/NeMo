@@ -95,7 +95,18 @@ jobs:
       - name: Test
         run: echo ${hostname}
 
-      
+  cicd-test-container-teardown:
+    needs: [pre-flight, cicd-test-container-deploy]
+    if: ${{ github.event.label.name == 'Run CICD' || github.event_name == 'workflow_dispatch' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.pre-flight.outputs.list-of-vms )}}
+    runs-on: ${{ matrix.vm }}
+    steps:
+      - name: Test
+        run: echo ${hostname}
+
   cicd-test-container-setup:
     needs: [cicd-test-container-deploy, pre-flight]
     runs-on: self-hosted-azure-builder
