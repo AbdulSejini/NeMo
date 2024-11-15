@@ -92,20 +92,30 @@ jobs:
         include: ${{ fromJSON(needs.pre-flight.outputs.list-of-vms )}}
     runs-on: ${{ matrix.vm }}
     steps:
-      - name: Test
-        run: echo ${hostname}
+      - name: Start container
+        env:
+          RUNNER: ${{ matrix.vm }}
+        run: |
+          ARG=("")
+          if [[ "$RUNNER" != *cpu* ]]; then
+            ARG=("--runtime=nvidia --gpus all")
+          fi
+
+          docker run --rm -d --name nemo_container_${{ github.run_id }} ${ARG[@]} --shm-size=64g --env TRANSFORMERS_OFFLINE=0 --env HYDRA_FULL_ERROR=1 --volume /mnt/datadrive/TestData:/home/TestData nemoci.azurecr.io/nemo_container:${{ github.run_id }} bash -c "sleep infinity"
 
   cicd-test-container-teardown:
-    needs: [pre-flight, cicd-test-container-deploy]
-    if: ${{ github.event.label.name == 'Run CICD' || github.event_name == 'workflow_dispatch' }}
+    needs: [pre-flight, cicd-test-container-deploy, Nemo_CICD_Test]
+    if: ${{ always() && (github.event.label.name == 'Run CICD' || github.event_name == 'workflow_dispatch') }}
     strategy:
       fail-fast: false
       matrix:
         include: ${{ fromJSON(needs.pre-flight.outputs.list-of-vms )}}
     runs-on: ${{ matrix.vm }}
     steps:
-      - name: Test
-        run: echo ${hostname}
+      - name: Stop container
+        run: |
+          docker container stop nemo_container_${{ github.run_id }} || true
+          docker container rm nemo_container_${{ github.run_id }} || true
 
   cicd-test-container-setup:
     needs: [cicd-test-container-deploy, pre-flight]
