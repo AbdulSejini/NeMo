@@ -64,13 +64,8 @@ jobs:
             | jq -c '[
                 .runners[] 
                 | select(.status == "online")
-                | select(.name | contains("gpu"))
                 | {
-                  "vm": .name, 
-                  "n_gpus": [
-                    .labels[] 
-                    | select(.name | endswith("gpu")) | .name
-                  ][0][:1]
+                  "vm": .name
                 }
               ]
             '
