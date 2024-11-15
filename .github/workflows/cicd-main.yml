@@ -52,7 +52,7 @@ jobs:
       - name: Get list of VMs
         id: list-vms
         env:
-          GITHUB_TOKEN: ${{ secrets.NEMO_REFORMAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READ_SETTINGS }}
         run: |
           RUNNERS=$(curl -L \
             -H "Accept: application/vnd.github+json" \
