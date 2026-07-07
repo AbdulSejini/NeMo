@@ -27,7 +27,7 @@ from pydantic import BaseModel
 # Configuration (override with environment variables)
 # --------------------------------------------------------------------------- #
 BASE_DIR = Path(__file__).parent
-COMPANY_NAME = os.environ.get("COMPANY_NAME", "شركتنا")
+COMPANY_NAME = os.environ.get("COMPANY_NAME", "شركة الكابلات السعودية")
 # claude-haiku-4-5 -> cheapest/fastest. Switch to claude-sonnet-5 or
 # claude-opus-4-8 for higher answer quality (see README for prices).
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5")
