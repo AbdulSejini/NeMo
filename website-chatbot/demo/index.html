@@ -1,0 +1,253 @@
+<title>مساعد شركة الكابلات السعودية</title>
+<style>
+  :root {
+    --bg: #f4f2ee;
+    --glow: rgba(232, 100, 28, .14);
+    --surface: #ffffff;
+    --accent: #e8641c;
+    --accent-hover: #f4741f;
+    --accent-ink: #ffffff;
+    --head-1: #24292e;
+    --head-2: #333a41;
+    --bot-bubble: #f1ede8;
+    --bot-ink: #241f1b;
+    --text: #201d1a;
+    --muted: #6c655e;
+    --border: #e6e0d8;
+    --chip-bg: #ffffff;
+    --chip-border: #ddd5cb;
+    --shadow: 0 18px 50px -14px rgba(60, 40, 20, .30);
+    --font: "Segoe UI", Tahoma, "Noto Naskh Arabic", system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141210;
+      --glow: rgba(255, 122, 51, .18);
+      --surface: #1c1a17;
+      --accent: #ff7a33;
+      --accent-hover: #ff8a48;
+      --accent-ink: #1a1206;
+      --head-1: #1a1815;
+      --head-2: #262320;
+      --bot-bubble: #262320;
+      --bot-ink: #efeae4;
+      --text: #efeae4;
+      --muted: #a89f96;
+      --border: #322e2a;
+      --chip-bg: #201d1a;
+      --chip-border: #38332e;
+      --shadow: 0 22px 60px -18px rgba(0, 0, 0, .72);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f4f2ee; --glow: rgba(232,100,28,.14); --surface: #fff; --accent: #e8641c;
+    --accent-hover: #f4741f; --accent-ink: #fff; --head-1: #24292e; --head-2: #333a41;
+    --bot-bubble: #f1ede8; --bot-ink: #241f1b; --text: #201d1a; --muted: #6c655e;
+    --border: #e6e0d8; --chip-bg: #fff; --chip-border: #ddd5cb;
+    --shadow: 0 18px 50px -14px rgba(60,40,20,.30);
+  }
+  :root[data-theme="dark"] {
+    --bg: #141210; --glow: rgba(255,122,51,.18); --surface: #1c1a17; --accent: #ff7a33;
+    --accent-hover: #ff8a48; --accent-ink: #1a1206; --head-1: #1a1815; --head-2: #262320;
+    --bot-bubble: #262320; --bot-ink: #efeae4; --text: #efeae4; --muted: #a89f96;
+    --border: #322e2a; --chip-bg: #201d1a; --chip-border: #38332e;
+    --shadow: 0 22px 60px -18px rgba(0,0,0,.72);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--text);
+    background:
+      radial-gradient(1100px 720px at 85% -10%, var(--glow), transparent 60%),
+      var(--bg);
+    direction: rtl;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px; min-height: 100dvh;
+  }
+  .wrap { width: 100%; max-width: 424px; display: flex; flex-direction: column; gap: 12px; }
+
+  .widget {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    height: min(80dvh, 680px);
+  }
+
+  .head {
+    background: linear-gradient(135deg, var(--head-1), var(--head-2));
+    color: #fff;
+    padding: 15px 18px;
+    display: flex; align-items: center; gap: 12px;
+    flex: 0 0 auto;
+    border-bottom: 3px solid var(--accent);
+  }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 11px; flex: 0 0 auto;
+    background: var(--accent);
+    display: grid; place-items: center;
+  }
+  .avatar svg { width: 22px; height: 22px; color: var(--accent-ink); }
+  .head .title { font-size: 15.5px; font-weight: 700; line-height: 1.25; }
+  .head .status { font-size: 12px; opacity: .85; display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #3fcf6a; box-shadow: 0 0 0 3px rgba(63,207,106,.22); }
+
+  .messages {
+    flex: 1 1 auto; overflow-y: auto; padding: 18px 16px;
+    display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth;
+  }
+  .msg {
+    max-width: 84%; padding: 11px 14px; font-size: 14.5px; line-height: 1.7;
+    white-space: pre-line; word-wrap: break-word; animation: pop .22s ease;
+    font-variant-numeric: tabular-nums;
+  }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .bot { align-self: flex-start; background: var(--bot-bubble); color: var(--bot-ink); border-radius: 16px 16px 16px 5px; }
+  .user { align-self: flex-end; background: var(--accent); color: var(--accent-ink); border-radius: 16px 16px 5px 16px; font-weight: 500; }
+
+  .typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 13px 15px; background: var(--bot-bubble); border-radius: 16px 16px 16px 5px; }
+  .typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); opacity: .5; animation: blink 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: .2s; }
+  .typing span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 4px; }
+  .chip {
+    border: 1px solid var(--chip-border); background: var(--chip-bg); color: var(--text);
+    border-radius: 999px; padding: 8px 14px; font-size: 13px; font-family: inherit;
+    cursor: pointer; transition: border-color .15s, color .15s, transform .1s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip:active { transform: scale(.97); }
+
+  form {
+    display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--border);
+    flex: 0 0 auto; background: var(--surface);
+  }
+  input {
+    flex: 1; padding: 12px 15px; border: 1px solid var(--border); border-radius: 12px;
+    font-size: 14.5px; font-family: inherit; background: transparent; color: var(--text); outline: none;
+  }
+  input::placeholder { color: var(--muted); }
+  input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
+  .send {
+    background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px;
+    width: 46px; display: grid; place-items: center; cursor: pointer; transition: background .15s, transform .1s;
+  }
+  .send:hover { background: var(--accent-hover); }
+  .send:active { transform: scale(.95); }
+  .send svg { width: 20px; height: 20px; transform: scaleX(-1); }
+
+  .note { text-align: center; font-size: 12px; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <div class="widget">
+    <div class="head">
+      <div class="avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.2c-.4.5 0 1.3.7 1.3H11l-1 8 8.8-11.7c.4-.5 0-1.3-.7-1.3H12l1-7.5z"/></svg>
+      </div>
+      <div>
+        <div class="title">شركة الكابلات السعودية</div>
+        <div class="status"><span class="dot"></span> مساعد خدمة العملاء · متصل</div>
+      </div>
+    </div>
+
+    <div class="messages" id="messages" aria-live="polite">
+      <div class="msg bot">أهلاً بك في شركة الكابلات السعودية 👋
+أنا المساعد الرقمي. اسألني عن منتجاتنا، خدمة العملاء، أو علاقات المستثمرين.</div>
+    </div>
+
+    <div class="chips" id="chips">
+      <button class="chip" type="button">منتجاتنا</button>
+      <button class="chip" type="button">خدمة العملاء</button>
+      <button class="chip" type="button">علاقات المستثمرين</button>
+      <button class="chip" type="button">السهم 2110</button>
+      <button class="chip" type="button">مقر الشركة</button>
+    </div>
+
+    <form id="form">
+      <input id="input" placeholder="اكتب سؤالك هنا…" autocomplete="off" aria-label="اكتب سؤالك" />
+      <button class="send" id="send" type="submit" aria-label="إرسال">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <p class="note">نموذج تفاعلي — المعلومات مستقاة من بيانات الشركة</p>
+</div>
+
+<script>
+  const KB = [
+    { k: "نبذه عن الشركه من انتم تعريف نشاط تصنعون تصنيع مجال كابلات طاقه اتصالات الياف ضوئيه scc", a: "شركة الكابلات السعودية (SCC) — مزوّد عالمي لحلول كابلات الطاقة والاتصالات. نصنّع كابلات الطاقة والاتصالات والألياف الضوئية وملحقاتها، ونخدم مشاريع الطاقة والاتصالات حول العالم." },
+    { k: "منتجات منتج منتجاتنا خدمات كابلات انواع نوع تقدمون تاريض جهد عالي مشاريع تركيب ملحقات turnkey", a: "خطوطنا الرئيسية:\n• كابلات متخصصة (صناعية وأجهزة قياس)\n• كابلات التأريض (Grounding)\n• المشاريع الضخمة ومشاريع التسليم المفتاحي (Turnkey)\n• خدمات الدعم الميداني: التركيب والوصلات والنهايات والاختبار\n• ملحقات الجهد العالي: نهايات، وصلات، عوازل، محوّلات، لوحات توزيع" },
+    { k: "تواصل اتصال رقم هاتف جوال ايميل بريد فاكس خدمه العملاء الرقم الموحد كيف اكلمكم اوصلكم", a: "خدمة العملاء تسعد بخدمتك:\n• الرقم الموحّد: 8004400014\n• هاتف: +966 12 608 7666\n• فاكس: +966 12 637 9877\n• البريد: info@saudicable.com" },
+    { k: "عنوان مقر مكان جده المنطقه الصناعيه صندوق بريد المصنع فين موقعكم الشركه", a: "مقر الشركة:\nص.ب 4403، المنطقة الصناعية — المرحلة الثانية، جدة 21491، المملكة العربية السعودية." },
+    { k: "علاقات المستثمرين مستثمر مساهمين مساهم توزيعات ارباح شؤون المساهمين", a: "علاقات المستثمرين وشؤون المساهمين:\n• هاتف: 012 608 7500\n• فاكس: 012 635 2220\n• البريد: Investor.Relations@saudicable.com" },
+    { k: "سهم اسهم تداول رمز 2110 ادراج مدرجه سوق بورصه رمز دولي isin التداول", a: "شركة الكابلات السعودية مدرجة في السوق المالية السعودية (تداول):\n• رمز السهم: 2110\n• تاريخ الإدراج: 03/09/1988\n• الرمز الدولي (ISIN): SA0007879238" },
+    { k: "تاسست تاسيس متى انشات عمر السنه الماليه ماليه مراجع حسابات معلومات عامه", a: "تأسست شركة الكابلات السعودية بتاريخ 01/01/1975. تنتهي السنة المالية في 31 ديسمبر، ومراجع الحسابات: المستشارون المهنيون (الخراشي)." },
+    { k: "مجلس الاداره رئيس المجلس العضو المنتدب اداره قياده رؤساء اعضاء الرئيس", a: "رئيس مجلس الإدارة: الأستاذ عبدالله بن عودة الغبين (غير تنفيذي).\nالعضو المنتدب: الأستاذ فارس بن منصور الراجحي.\nويضم المجلس عدداً من الأعضاء التنفيذيين والمستقلين." },
+    { k: "موقع الكتروني ويب سايت رابط الرسمي", a: "الموقع الإلكتروني الرسمي: www.saudicable.com" },
+  ];
+  const FALLBACK = "ما عندي معلومة عن هذا تحديداً. تواصل مع خدمة العملاء وبيساعدونك:\n• الرقم الموحّد: 8004400014\n• info@saudicable.com";
+
+  const norm = (s) => s
+    .replace(/[ً-ْٰ]/g, "")
+    .replace(/[أإآ]/g, "ا").replace(/ى/g, "ي").replace(/ة/g, "ه")
+    .replace(/[^؀-ۿa-z0-9\s]/gi, " ")
+    .toLowerCase();
+
+  function answer(q) {
+    const tokens = norm(q).split(/\s+/).filter((t) => t.length >= 2);
+    let best = null, bestScore = 0;
+    for (const item of KB) {
+      const stems = norm(item.k).split(/\s+/).filter((s) => s.length >= 3);
+      let score = 0;
+      for (const t of tokens) if (stems.some((s) => t.includes(s))) score++;
+      if (score > bestScore) { bestScore = score; best = item; }
+    }
+    return bestScore > 0 ? best.a : FALLBACK;
+  }
+
+  const messages = document.getElementById("messages");
+  const form = document.getElementById("form");
+  const input = document.getElementById("input");
+  const chips = document.getElementById("chips");
+
+  function add(role, text) {
+    const div = document.createElement("div");
+    div.className = "msg " + role;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+  function ask(text) {
+    add("user", text);
+    chips.style.display = "none";
+    const typing = document.createElement("div");
+    typing.className = "typing";
+    typing.innerHTML = "<span></span><span></span><span></span>";
+    messages.appendChild(typing);
+    messages.scrollTop = messages.scrollHeight;
+    const reply = answer(text);
+    setTimeout(() => { typing.remove(); add("bot", reply); }, 520 + Math.min(text.length * 12, 480));
+  }
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const t = input.value.trim();
+    if (!t) return;
+    input.value = "";
+    ask(t);
+  });
+  chips.addEventListener("click", (e) => {
+    const btn = e.target.closest(".chip");
+    if (btn) ask(btn.textContent.trim());
+  });
+  input.focus();
+</script>
